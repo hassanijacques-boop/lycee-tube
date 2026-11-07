@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lycée Tube — toutes les vidéos pour réviser, de la seconde à la terminale</title>
+<meta name="description" content="La bibliothèque de vidéos pour réviser le programme du lycée, de la seconde à la terminale, séries générales et technologiques. Classée à la main. Zéro algorithme.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Inter:wght@400;500;600;700&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FBF6EC; --paper2:#F4ECDC; --ink:#16213C; --ink2:#46506B;
+  --line:#E2D6BF; --card:#FFFDF8;
+  --fr:#157F5F; --ma:#23618F; --sc:#31825A; --hi:#9B5320; --ge:#1F7A6C;
+  --em:#65489B; --an:#B93A73; --ar:#C98A12; --nu:#37496B;
+  --shadow:4px 4px 0 var(--ink);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:Inter,system-ui,-apple-system,sans-serif;font-size:16px;line-height:1.55;
+  background-image:radial-gradient(#00000008 1px, transparent 1px);background-size:22px 22px}
+img{display:block;max-width:100%}
+a{color:inherit}
+button{font-family:inherit}
+
+/* ---------- TOP BAR ---------- */
+.top{position:sticky;top:0;z-index:60;display:flex;align-items:center;gap:18px;padding:12px 22px;
+  background:rgba(251,246,236,.92);backdrop-filter:blur(10px);border-bottom:2px solid var(--ink)}
+.brand{display:flex;align-items:center;gap:10px;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:19px;letter-spacing:-.02em;white-space:nowrap}
+.brand .mark{width:34px;height:34px;border:2px solid var(--ink);border-radius:9px;display:grid;place-items:center;background:var(--ink);color:var(--paper);font-size:17px;box-shadow:2px 2px 0 var(--fr)}
+.brand small{display:block;font-family:Inter,sans-serif;font-weight:500;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink2)}
+.search{flex:1;min-width:0;max-width:430px;position:relative}
+.search input{width:100%;padding:10px 14px 10px 38px;border:2px solid var(--ink);border-radius:999px;background:var(--card);
+  font-size:14.5px;color:var(--ink);outline:none;transition:box-shadow .15s}
+.search input:focus{box-shadow:3px 3px 0 var(--ma)}
+.search::before{content:"🔍";position:absolute;left:12px;top:50%;transform:translateY(-52%);font-size:14px;opacity:.65;pointer-events:none}
+.noalgo{margin-left:auto;display:flex;align-items:center;gap:8px;font-size:12.5px;font-weight:600;color:var(--ink2)}
+.noalgo b{color:var(--fr)}
+
+/* ---------- HERO ---------- */
+.hero{padding:56px 22px 34px;max-width:1240px;margin:0 auto;position:relative}
+.kicker{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+  background:var(--ink);color:var(--paper);padding:6px 13px;border-radius:999px}
+.hero h1{font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(38px,6.4vw,74px);line-height:.98;letter-spacing:-.045em;margin:20px 0 0;font-weight:800;max-width:15ch}
+.hero h1 em{font-style:normal;color:var(--fr);position:relative;display:inline-block;
+  background-image:linear-gradient(180deg,transparent 58%,rgba(242,183,5,.55) 58%,rgba(242,183,5,.55) 88%,transparent 88%)}
+.hero p.lead{font-size:17.5px;max-width:56ch;color:var(--ink2);margin:20px 0 0}
+.hero .hand{font-family:Caveat,cursive;font-size:23px;color:var(--ma);transform:rotate(-2deg);display:inline-block;margin-top:16px}
+.stats{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+.stat{background:var(--card);border:2px solid var(--ink);border-radius:14px;padding:10px 16px;box-shadow:3px 3px 0 var(--ink)}
+.stat b{font-family:'Bricolage Grotesque',sans-serif;font-size:24px;letter-spacing:-.03em;display:block;line-height:1}
+.stat span{font-size:11.5px;text-transform:uppercase;letter-spacing:.1em;color:var(--ink2);font-weight:600}
+
+/* ---------- FILTERS ---------- */
+.filters{position:sticky;top:63px;z-index:50;background:rgba(244,236,220,.96);backdrop-filter:blur(8px);border-top:2px solid var(--ink);border-bottom:2px solid var(--ink)}
+.levels,.mats{max-width:1240px;margin:0 auto;padding:0 22px;display:flex;gap:8px;overflow-x:auto;scrollbar-width:none}
+.levels::-webkit-scrollbar,.mats::-webkit-scrollbar{display:none}
+.levels{padding-top:10px;padding-bottom:8px}
+.mats{padding-bottom:10px}
+.lvbtn{flex:0 0 auto;border:2px solid var(--ink);background:var(--card);border-radius:11px;padding:7px 16px;font-weight:700;font-size:14.5px;cursor:pointer;
+  box-shadow:2px 2px 0 var(--ink);transition:.12s;display:flex;flex-direction:column;align-items:center;min-width:64px}
+.lvbtn small{font-size:9.5px;font-weight:600;letter-spacing:.06em;color:var(--ink2);text-transform:uppercase}
+.lvbtn:hover{transform:translate(-1px,-1px);box-shadow:3px 3px 0 var(--ink)}
+.lvbtn.on{background:var(--ink);color:var(--paper)}
+.lvbtn.on small{color:#C9CFE0}
+.matbtn{flex:0 0 auto;border:1.5px solid var(--line);background:transparent;border-radius:999px;padding:6px 13px;font-size:13px;font-weight:600;cursor:pointer;color:var(--ink2);
+  display:flex;align-items:center;gap:6px}
+.matbtn .dot{width:8px;height:8px;border-radius:50%}
+.matbtn.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.matbtn.on .dot{box-shadow:0 0 0 2px rgba(255,255,255,.35)}
+
+/* ---------- CONTENT ---------- */
+main{max-width:1240px;margin:0 auto;padding:8px 22px 60px}
+.lvhead{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin:34px 0 6px;flex-wrap:wrap}
+.lvhead h2{font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(26px,3.4vw,38px);letter-spacing:-.035em;margin:0}
+.lvhead .sub{color:var(--ink2);font-size:14px;max-width:62ch;margin:4px 0 0}
+.progwrap{min-width:190px}
+.progwrap .t{font-size:11.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink2);display:flex;justify-content:space-between;gap:10px}
+.bar{height:9px;border:1.5px solid var(--ink);border-radius:999px;background:var(--card);overflow:hidden;margin-top:5px}
+.bar i{display:block;height:100%;background:var(--sc);width:0;transition:width .3s}
+
+.matsec{margin-top:38px}
+.matsec>header{display:flex;align-items:center;gap:12px;padding-bottom:10px;border-bottom:2.5px solid var(--ink);margin-bottom:6px;flex-wrap:wrap}
+.matsec .ico{width:38px;height:38px;border-radius:11px;display:grid;place-items:center;font-size:19px;border:2px solid var(--ink);color:#fff;box-shadow:2px 2px 0 var(--ink)}
+.matsec h3{font-family:'Bricolage Grotesque',sans-serif;font-size:22px;margin:0;letter-spacing:-.02em}
+.matsec .att{font-size:13.5px;color:var(--ink2);margin:2px 0 0;max-width:70ch}
+.matsec .n{margin-left:auto;font-size:12px;font-weight:700;color:var(--ink2);background:var(--paper2);border:1.5px solid var(--line);padding:4px 10px;border-radius:999px}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(248px,1fr));gap:16px;margin-top:16px}
+.card{background:var(--card);border:2px solid var(--ink);border-radius:15px;overflow:hidden;cursor:pointer;display:flex;flex-direction:column;
+  transition:transform .14s,box-shadow .14s;box-shadow:2px 2px 0 rgba(22,33,60,.16)}
+.card:hover{transform:translate(-2px,-2px);box-shadow:5px 5px 0 var(--ink)}
+.card.seen{opacity:.62}
+.card.seen .thumb::after{content:"VU";position:absolute;inset:0;display:grid;place-items:center;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;
+  font-size:26px;letter-spacing:.2em;color:#fff;background:rgba(22,33,60,.55)}
+.thumb{position:relative;aspect-ratio:16/9;background:var(--paper2);overflow:hidden}
+.thumb img{width:100%;height:100%;object-fit:cover}
+.thumb .ph{position:absolute;inset:0;display:grid;place-items:center;font-size:30px}
+.dur{position:absolute;right:7px;bottom:7px;background:var(--ink);color:var(--paper);font-size:11px;font-weight:700;padding:2px 6px;border-radius:5px;letter-spacing:.02em}
+.play{position:absolute;inset:0;display:grid;place-items:center;opacity:0;transition:.15s;background:linear-gradient(0deg,rgba(22,33,60,.35),rgba(22,33,60,.05))}
+.card:hover .play{opacity:1}
+.play span{width:48px;height:48px;border-radius:50%;background:var(--paper);color:var(--ink);display:grid;place-items:center;font-size:17px;padding-left:4px;border:2px solid var(--ink)}
+.seenbtn{position:absolute;left:7px;top:7px;width:27px;height:27px;border-radius:50%;border:2px solid #fff;background:rgba(22,33,60,.55);color:#fff;font-size:13px;
+  cursor:pointer;display:grid;place-items:center;z-index:3}
+.seenbtn:hover{background:var(--sc);border-color:var(--sc)}
+.card.seen .seenbtn{background:var(--sc);border-color:var(--sc)}
+.body{padding:11px 13px 13px;display:flex;flex-direction:column;gap:5px;flex:1}
+.thm{font-size:10.5px;font-weight:700;letter-spacing:.11em;text-transform:uppercase;color:var(--ink2)}
+.card h4{font-size:14.5px;line-height:1.32;margin:0;font-weight:600;letter-spacing:-.01em;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.meta{margin-top:auto;display:flex;align-items:center;gap:7px;font-size:11.5px;color:var(--ink2);padding-top:6px}
+.meta .ch{font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:60%}
+.meta .lvls{margin-left:auto;display:flex;gap:3px}
+.meta .lvls i{font-style:normal;font-size:9.5px;font-weight:700;border:1px solid var(--line);border-radius:4px;padding:1px 4px;background:var(--paper2)}
+.empty{padding:60px 0;text-align:center;color:var(--ink2)}
+.empty b{display:block;font-family:'Bricolage Grotesque',sans-serif;font-size:22px;color:var(--ink)}
+
+/* ---------- PROGRAMME ---------- */
+.panel{margin:70px 0 0;border:2.5px solid var(--ink);border-radius:20px;background:var(--card);overflow:hidden;box-shadow:6px 6px 0 var(--ink)}
+.panel>header{padding:24px 26px 18px;border-bottom:2px solid var(--ink);background:var(--paper2)}
+.panel>header .kicker{background:var(--fr);color:#fff}
+.panel>header h2{font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(24px,3.2vw,34px);margin:12px 0 4px;letter-spacing:-.03em}
+.panel>header p{margin:0;color:var(--ink2);font-size:14.5px;max-width:75ch}
+.progtable{width:100%;border-collapse:collapse;font-size:14px}
+.progtable th{text-align:left;padding:11px 16px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink2);border-bottom:1.5px solid var(--line);background:var(--paper)}
+.progtable td{padding:13px 16px;border-bottom:1px solid var(--line);vertical-align:top}
+.progtable tr:last-child td{border-bottom:none}
+.progtable td.m{font-weight:700;white-space:nowrap}
+.progtable ul{margin:0;padding-left:16px}
+.progtable li{margin:2px 0}
+.pill{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;font-weight:700;padding:2px 8px;border-radius:999px;background:var(--paper2);border:1px solid var(--line)}
+
+/* ---------- CHAINES ---------- */
+.chans{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:13px;padding:22px 26px 26px}
+.chan{border:2px solid var(--ink);border-radius:13px;padding:13px 15px;background:var(--card);text-decoration:none;transition:.14s;display:block}
+.chan:hover{transform:translate(-2px,-2px);box-shadow:4px 4px 0 var(--ink)}
+.chan b{font-family:'Bricolage Grotesque',sans-serif;font-size:16px;display:block;letter-spacing:-.02em}
+.chan span{font-size:12.5px;color:var(--ink2);display:block;margin-top:3px}
+.chan em{font-style:normal;font-size:11px;font-weight:700;color:var(--ma);letter-spacing:.05em;text-transform:uppercase}
+
+/* ---------- METHODE ---------- */
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px;padding:22px 26px 26px}
+.step{border-left:4px solid var(--ar);padding:4px 0 4px 14px}
+.step b{font-family:'Bricolage Grotesque',sans-serif;font-size:15.5px;display:block;letter-spacing:-.01em}
+.step span{font-size:13.5px;color:var(--ink2)}
+
+/* ---------- MODAL ---------- */
+.modal{position:fixed;inset:0;z-index:100;display:none;place-items:center;padding:18px;background:rgba(16,22,40,.82);backdrop-filter:blur(6px)}
+.modal.open{display:grid}
+.mbox{width:min(920px,100%);background:var(--paper);border:3px solid var(--ink);border-radius:18px;overflow:hidden;box-shadow:8px 8px 0 rgba(0,0,0,.35);max-height:94vh;display:flex;flex-direction:column}
+.mtop{display:flex;align-items:center;gap:12px;padding:11px 15px;border-bottom:2px solid var(--ink);background:var(--paper2)}
+.mtop .t{font-weight:700;font-size:14.5px;line-height:1.25;flex:1;letter-spacing:-.01em}
+.mtop button{border:2px solid var(--ink);background:var(--card);border-radius:8px;width:32px;height:32px;cursor:pointer;font-size:15px;font-weight:700}
+.mtop button:hover{background:var(--ink);color:var(--paper)}
+.video{aspect-ratio:16/9;background:#000}
+.video iframe{width:100%;height:100%;border:0;display:block}
+.mbot{display:flex;align-items:center;gap:12px;padding:11px 15px;flex-wrap:wrap;font-size:13px;color:var(--ink2)}
+.mbot a{font-weight:600;color:var(--ma)}
+.mbot .seen2{margin-left:auto;border:2px solid var(--ink);border-radius:8px;padding:6px 12px;background:var(--card);cursor:pointer;font-weight:700;font-size:12.5px}
+.mbot .seen2.on{background:var(--sc);color:#fff;border-color:var(--sc)}
+
+/* ---------- FOOTER ---------- */
+footer{border-top:2px solid var(--ink);background:var(--paper2);padding:30px 22px;font-size:13px;color:var(--ink2)}
+footer .inner{max-width:1240px;margin:0 auto;display:flex;gap:24px;flex-wrap:wrap;justify-content:space-between}
+footer b{color:var(--ink)}
+
+@media(max-width:760px){
+  .filters{top:57px}
+  .noalgo{display:none}
+  .top{padding:9px 14px;gap:10px}
+  .brand{font-size:15.5px;letter-spacing:-.03em}
+  .brand small{display:none}
+  .brand .mark{width:29px;height:29px;font-size:14px;border-radius:8px}
+  .search input{font-size:13px;padding:8px 10px 8px 30px}
+  .search::before{left:10px;font-size:12px}
+  .hero{padding-top:34px}
+  .grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px}
+  .card h4{font-size:13px}
+  .panel{box-shadow:4px 4px 0 var(--ink);border-radius:14px}
+  .progtable{font-size:12.5px}
+  .progtable td,.progtable th{padding:9px 10px}
+}
+@media print{
+  .top,.filters,.hero .stats,.play,.seenbtn,.modal,footer{display:none!important}
+  body{background:#fff}
+  .card{break-inside:avoid;box-shadow:none;border:1px solid #999}
+  .grid{grid-template-columns:repeat(3,1fr)}
+  a{text-decoration:none}
+}
+.panel .progtable{table-layout:fixed;width:100%}
+.panel .progtable td,.panel .progtable th{padding:11px 13px;overflow-wrap:anywhere}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="brand"><span class="mark">L</span><span>LYCÉE TUBE<small>2de → Tle · à la main</small></span></div>
+  <div class="search"><input id="q" type="search" placeholder="Chercher : la dérivation, l'oral du bac, la justice…" autocomplete="off"></div>
+  <div class="noalgo"><span>Classement <b>100 % humain</b></span> · <span id="seenPct">0 % vu</span></div>
+</header>
+
+<section class="hero">
+  <div class="kicker">📺 Le programme du lycée, vidéo par vidéo</div>
+  <h1>Toutes les vidéos pour réviser. <em>Classées à la main.</em></h1>
+  <p class="lead">Pas de fil de recommandation, pas de Shorts qui défilent, pas de « tu pourrais aussi aimer ». Chaque vidéo répond à <strong>un point précis du programme</strong> — bac de français, spécialités, séries technologiques — et elle est rangée à sa place.</p>
+  <div class="hand">→ on regarde ce qui bloque, pas tout le programme.</div>
+  <div class="stats">
+    <div class="stat"><b id="sVid">—</b><span>vidéos vérifiées</span></div>
+    <div class="stat"><b id="sCh">—</b><span>chaînes retenues</span></div>
+    <div class="stat"><b id="sTh">—</b><span>points du programme</span></div>
+    <div class="stat"><b>0</b><span>algorithme</span></div>
+  </div>
+</section>
+
+<div class="filters">
+  <div class="levels" id="levels"></div>
+  <div class="mats" id="mats"></div>
+</div>
+
+<main>
+  <div class="lvhead">
+    <div>
+      <h2 id="lvTitle">CP</h2>
+      <p class="sub" id="lvSub"></p>
+    </div>
+    <div class="progwrap">
+      <div class="t"><span>Vidéos vues</span><span id="progTxt">0 / 0</span></div>
+      <div class="bar"><i id="progBar"></i></div>
+    </div>
+  </div>
+  <div id="list"></div>
+
+  <section class="panel" id="programme">
+    <header>
+      <div class="kicker">📌 Le programme officiel</div>
+      <h2 id="progH">Ce que l'élève doit savoir en fin de 2de</h2>
+      <p id="progP">Les domaines et les attendus, matière par matière. C'est la carte qui permet de savoir <em>où</em> on en est — et quelle vidéo regarder ensuite.</p>
+    </header>
+    <div id="progBody"></div>
+  </section>
+
+
+  <section class="panel" id="pack">
+    <header>
+      <div class="kicker">📝 Le pack français — épreuves anticipées</div>
+      <h2>Le bac de français, découpé épreuve par épreuve</h2>
+      <p>Les quatre objets d'étude sont les mêmes pour <strong>toutes les séries</strong>, générales et technologiques. Ce qui change d'une série à l'autre, ce sont les sujets — jamais la méthode.</p>
+    </header>
+    <table class="progtable">
+      <thead><tr><th style="width:170px">Épreuve</th><th>Ce qu'on demande exactement</th><th style="width:30%">Ce qui fait la différence</th></tr></thead>
+      <tbody>
+        <tr><td class="m"><span class="pill">✍️ Écrit — 4 h</span></td>
+          <td><b>Deux exercices proposés, un seul à traiter.</b><ul>
+            <li><b>Commentaire</b> : analyser un texte littéraire inconnu, en montrant comment il est écrit.</li>
+            <li><b>Dissertation</b> : répondre à une question sur une œuvre au programme, avec des citations.</li></ul></td>
+          <td>Les citations exactes et les procédés nommés. Une copie sans référence au texte plafonne, quelle que soit la qualité du français.</td></tr>
+        <tr><td class="m"><span class="pill">🎤 Oral — 20 min</span></td>
+          <td><b>Trois temps, chronométrés.</b><ul>
+            <li><b>8 min</b> — lecture linéaire d'un texte étudié en classe.</li>
+            <li><b>2 min</b> — question de grammaire sur une phrase du texte.</li>
+            <li><b>10 min</b> — présentation de l'œuvre choisie, puis entretien.</li></ul></td>
+          <td>La lecture à voix haute. Un texte mal lu fait perdre des points avant même l'analyse. On s'enregistre, on réécoute.</td></tr>
+        <tr><td class="m"><span class="pill">📚 Les 4 objets d'étude</span></td>
+          <td><ul>
+            <li>La poésie du XIXe au XXIe siècle</li>
+            <li>La littérature d'idées du XVIe au XVIIIe siècle</li>
+            <li>Le roman et le récit du Moyen Âge au XXIe siècle</li>
+            <li>Le théâtre du XVIIe au XXIe siècle</li></ul></td>
+          <td><b>Aucun ne peut être abandonné</b> : l'oral tire un texte parmi les douze étudiés, tous objets confondus. Les œuvres précises changent chaque année — celles de cette année sont sur le site du ministère et chez le prof.</td></tr>
+        <tr><td class="m"><span class="pill">🩺 En série technologique</span></td>
+          <td>Les <b>mêmes quatre objets d'étude</b> et les <b>mêmes deux épreuves</b>. Les sujets sont adaptés : documents plus guidés, consignes plus explicites, attentes recentrées sur l'analyse plutôt que sur l'érudition.</td>
+          <td>Ne pas croire que « c'est plus facile ». Le programme est le même : c'est la manière de poser la question qui change. Les élèves de techno qui réussissent sont ceux qui ont lu les œuvres, pas ceux qui ont appris des fiches.</td></tr>
+      </tbody>
+    </table>
+    <div style="padding:0 26px 26px">
+      <div style="border-left:4px solid var(--fr);padding:6px 0 6px 14px;color:var(--ink2);font-size:13.5px">
+        <strong style="color:var(--ink)">Les séries technologiques, en un tableau.</strong>
+        Choisir sa série, c'est choisir ses deux spécialités de 1re et de terminale — pas une orientation « par défaut ». Le bac de français est commun ; tout le reste est spécifique.
+      </div>
+    </div>
+    <table class="progtable">
+      <thead><tr><th style="width:110px">Série</th><th>Spécialités</th><th style="width:32%">Pour qui</th></tr></thead>
+      <tbody>
+        <tr><td class="m"><span class="pill" style="color:#C2185B">● ST2S</span></td><td><b>STSS</b> (sciences et techniques sanitaires et sociales) + <b>BPH</b> (biologie et physiopathologie humaines), avec physique-chimie pour la santé.</td><td>Métiers du soin et du social : IFSI, paramédical, travail social. Beaucoup de lecture et de méthode.</td></tr>
+        <tr><td class="m"><span class="pill" style="color:#1565C0">● STMG</span></td><td>Droit et économie, management, sciences de gestion et numérique, puis une spécialité en terminale (gestion-finance, mercatique, RH, SIG).</td><td>Entreprise, commerce, comptabilité, droit. La série techno la plus représentée.</td></tr>
+        <tr><td class="m"><span class="pill" style="color:#455A64">● STI2D</span></td><td>Innovation technologique, ingénierie et développement durable, physique-chimie et mathématiques. En terminale : EE, SIN, ITEC ou AC.</td><td>Ingénierie, énergie, numérique, mécanique. Beaucoup de projet.</td></tr>
+        <tr><td class="m"><span class="pill" style="color:#00796B">● STL</span></td><td>Physique-chimie et mathématiques + biotechnologies ou sciences physiques et chimiques en laboratoire.</td><td>Laboratoire, analyses, biologie appliquée.</td></tr>
+        <tr><td class="m"><span class="pill" style="color:#8E24AA">● STD2A</span></td><td>Design et arts appliqués, physique-chimie, outils et méthodes.</td><td>Design d'objet, d'espace, graphisme. Dossier artistique attendu.</td></tr>
+        <tr><td class="m"><span class="pill" style="color:#EF6C00">● STHR</span></td><td>Sciences et technologies culinaires, gestion hôtelière, enseignement scientifique.</td><td>Hôtellerie-restauration, tourisme.</td></tr>
+        <tr><td class="m"><span class="pill">● Autres</span></td><td><b>S2TMD</b> (théâtre, musique, danse) et <b>STAV</b> (agronomie, dans les lycées agricoles).</td><td>Profils artistiques ou agricoles : renseignements auprès de l'établissement.</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="panel" id="chaines">
+    <header>
+      <div class="kicker">🎬 Les chaînes</div>
+      <h2>Les chaînes qui font le travail</h2>
+      <p>Toutes gratuites, toutes en français. Elles sont citées sur chaque carte : on sait toujours qui parle à l'enfant.</p>
+    </header>
+    <div class="chans" id="chans"></div>
+  </section>
+
+  <section class="panel" id="methode">
+    <header>
+      <div class="kicker">⏱️ La méthode</div>
+      <h2>Une vidéo quand ça bloque, pas « pour réviser »</h2>
+      <p>Au lycée, le temps est compté : on ne regarde pas un cours en espérant que ça rentre. On cible, on note, on refait. Voilà l'ordre qui marche.</p>
+    </header>
+    <div class="steps">
+      <div class="step"><b>1. On part de l'exercice</b><span>La vidéo répond à une question précise, pas à « réviser le chapitre ».</span></div>
+      <div class="step"><b>2. On cherche le passage</b><span>On avance jusqu'à l'endroit exact qui bloque. Pas besoin du début.</span></div>
+      <div class="step"><b>3. On note la règle et l'exemple</b><span>Deux lignes sur une fiche. C'est la fiche qui servira en janvier.</span></div>
+      <div class="step"><b>4. On refait sans regarder</b><span>L'exercice qui a coincé, en entier, seul. C'est le seul vrai test.</span></div>
+      <div class="step"><b>5. On coche et on planifie</b><span>Case ✓, puis révision à J+3 et J+7. Sinon on oublie 80 %.</span></div>
+    </div>
+    <div style="padding:0 26px 26px">
+      <div class="callout" style="border-left:4px solid var(--fr);padding:6px 0 6px 14px;color:var(--ink2);font-size:13.5px">
+        <strong style="color:var(--ink)">Ce qui n'est pas ici, et pourquoi.</strong> L'EPS ne s'apprend pas devant un écran, et une langue vivante se parle. Pour le bac, aucune vidéo ne remplace une copie rédigée en temps limité : regarde la méthode, puis fais un sujet chronométré.
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="inner">
+    <div><b>Lycée Tube</b> — bibliothèque de vidéos pour le lycée, classée à la main.<br>Programmes du lycée général et technologique, d'après les programmes officiels en vigueur.<br><span style="font-size:12px">Version 1 — 7 novembre 2026 · 189 liens testés un par un.</span></div>
+    <div>Les vidéos restent la propriété de leurs auteurs.<br>Les liens ouvrent YouTube ; aucune donnée n'est collectée.<br>Progression enregistrée uniquement sur cet appareil.</div>
+  </div>
+</footer>
+
+<div class="modal" id="modal">
+  <div class="mbox">
+    <div class="mtop"><div class="t" id="mTitle"></div><button id="mClose" aria-label="Fermer">✕</button></div>
+    <div class="video"><iframe id="mFrame" allow="accelerometer; autoplay; clipboard-write; encrypted-media; picture-in-picture" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
+    <div class="mbot">
+      <span id="mMeta"></span>
+      <a id="mLink" href="#" target="_blank" rel="noopener">Ouvrir sur YouTube ↗</a>
+      <button class="seen2" id="mSeen">✓ Marquer comme vue</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const VIDEOS = [{"i":"SqJlGwi4lsI","t":"Les 15 règles de grammaire essentielles","c":"Apprendre l'anglais avec les Tutos de Huito","d":1282,"m":"Anglais","th":"Grammaire","lv":["2de"]},{"i":"yv1L4h98qxk","t":"Les temps en anglais","c":"English with Maud","d":384,"m":"Anglais","th":"Grammaire","lv":["2de"]},{"i":"TrMZ1oNyqf0","t":"Poésie : l'amour courtois - Français","c":"Les Bons Profs","d":485,"m":"Français","th":"La poésie","lv":["2de"]},{"i":"YAQfC4yMcxg","t":"Analyser une Poésie : avec le bon vocabulaire !","c":"Un Cours de 5 Minutes","d":319,"m":"Français","th":"La poésie","lv":["2de"]},{"i":"vx_1sIpnM3E","t":"Le roman au 17e siècle - Français","c":"Les Bons Profs","d":299,"m":"Français","th":"Le roman","lv":["2de"]},{"i":"vXItYIaZIKQ","t":"Français seconde/ Essentiel du cours - Chapitre 10 : Le roman et le récit du XVI-XXIème s","c":"Corrigeo","d":203,"m":"Français","th":"Le roman","lv":["2de"]},{"i":"qky7Qml5Vkc","t":"Théâtre : tragédie, comédie, tragi-comédie - Français","c":"Les Bons Profs","d":435,"m":"Français","th":"Le théâtre","lv":["2de"]},{"i":"e6t8H6jC3AM","t":"Théâtre : le classicisme - Français","c":"Les Bons Profs","d":329,"m":"Français","th":"Le théâtre","lv":["2de"]},{"i":"aWwMiPactR0","t":"Littérature et presse - Littérature d'idées","c":"Les Bons Profs","d":400,"m":"Français","th":"Littérature d'idées","lv":["2de"]},{"i":"eh7lXg-TR18","t":"Littérature d'idées - Français 2de","c":"Les Bons Profs","d":491,"m":"Français","th":"Littérature d'idées","lv":["2de"]},{"i":"cOlJ1bZE0Tk","t":"4 astuces magiques pour briller en commentaire ! 🤩 🤩 🤩","c":"Ta coach de français","d":357,"m":"Français","th":"Méthode","lv":["2de"]},{"i":"8SwLIrrknH4","t":"Trouver plus de procédés dans un texte l Technique magique ! ⚡️","c":"Ta coach de français","d":539,"m":"Français","th":"Méthode","lv":["2de"]},{"i":"t7iBQ4MeOLA","t":"Les sociétés face aux risques - Histoire-Géographie","c":"Les Bons Profs","d":610,"m":"Géographie","th":"Environnement","lv":["2de"]},{"i":"4ug2Z9sGle8","t":"SECONDE Sociétés et environnements des équilibres fragiles","c":"Lionel Lacoux","d":831,"m":"Géographie","th":"Environnement","lv":["2de"]},{"i":"VXaMp-SU7_M","t":"Seconde : Des mobilités généralisées","c":"Lionel Lacoux","d":855,"m":"Géographie","th":"Mobilités","lv":["2de"]},{"i":"jDU87mCchUY","t":"Les mobilités touristiques internationales - Histoire-Géographie","c":"Les Bons Profs","d":280,"m":"Géographie","th":"Mobilités","lv":["2de"]},{"i":"yhusUir9XSo","t":"Développement et inégalités (Géographie 2de)","c":"Éditions Lelivrescolaire.fr","d":128,"m":"Géographie","th":"Territoires","lv":["2de"]},{"i":"KIyexUNxLvA","t":"Géo 2de : Démographie, inégalités et développement","c":"LesEditionsHatier","d":140,"m":"Géographie","th":"Territoires","lv":["2de"]},{"i":"ZzrNxsfU_TU","t":"Histoire 2de -Chapitre 7 : Les Lumières et le développement des sciences aux XVIIe et XVIIIe siècles","c":"LesEditionsHatier","d":260,"m":"Histoire","th":"Lumières et révolutions","lv":["2de"]},{"i":"PkpWPb9IWZY","t":"Les Lumières : mouvement du 18e siècle","c":"Amélie Vioux - Bac de français","d":590,"m":"Histoire","th":"Lumières et révolutions","lv":["2de"]},{"i":"kZeFQ06-kdA","t":"La Méditerranée médiévale, espace d’échanges et de conflits (Histoire 2de)","c":"Éditions Lelivrescolaire.fr","d":136,"m":"Histoire","th":"Méditerranée médiévale","lv":["2de"]},{"i":"fxcKwi8enBE","t":"SECONDE : La Méditerranée médiévale, espace d'échanges et de conflits","c":"Lionel Lacoux","d":755,"m":"Histoire","th":"Méditerranée médiévale","lv":["2de"]},{"i":"n9cDB6zW1yc","t":"Renaissance, humanisme et réformes religieuses - Histoire-Géographie","c":"Les Bons Profs","d":347,"m":"Histoire","th":"Renaissance","lv":["2de"]},{"i":"UHQ0Bgyo47g","t":"SECONDE Humanisme, Renaissance et réformes religieuses","c":"Lionel Lacoux","d":782,"m":"Histoire","th":"Renaissance","lv":["2de"]},{"i":"kL-eMNZiARM","t":"LE COURS - Les ensembles de nombres","c":"Yvan Monka","d":482,"m":"Maths","th":"Algèbre","lv":["2de"]},{"i":"w92-onm8k3s","t":"COMPRENDRE les ensembles de nombres","c":"Hedacademy","d":739,"m":"Maths","th":"Algèbre","lv":["2de"]},{"i":"kbTWwWQ9tYo","t":"LE COURS : Les inéquations","c":"Yvan Monka","d":1251,"m":"Maths","th":"Algèbre","lv":["2de"]},{"i":"ycYfb8aHssY","t":"Résoudre une inéquation (1)","c":"Yvan Monka","d":465,"m":"Maths","th":"Algèbre","lv":["2de"]},{"i":"HjBZ2QcD5V8","t":"QCM : Généralités sur les fonctions","c":"Yvan Monka","d":604,"m":"Maths","th":"Fonctions","lv":["2de"]},{"i":"i8aYSIidNlk","t":"LE COURS : Variations des fonctions","c":"Yvan Monka","d":1560,"m":"Maths","th":"Fonctions","lv":["2de"]},{"i":"aSSDBNn_rRI","t":"LE COURS : Les vecteurs","c":"Yvan Monka","d":1908,"m":"Maths","th":"Géométrie","lv":["2de"]},{"i":"q8_FnT9Yjeg","t":"LES VECTEURS ✅ Cours complet ! 🎯 Seconde - Math","c":"Paul Olivier","d":1060,"m":"Maths","th":"Géométrie","lv":["2de"]},{"i":"PLD0vSttxHk","t":"Géométrie analytique","c":"Hedacademy","d":1017,"m":"Maths","th":"Géométrie","lv":["2de"]},{"i":"EehP4SFpo5c","t":"LE COURS : Géométrie repérée","c":"Yvan Monka","d":615,"m":"Maths","th":"Géométrie","lv":["2de"]},{"i":"dvx_O37gfyY","t":"LE COURS : Probabilités","c":"Yvan Monka","d":1454,"m":"Maths","th":"Statistiques","lv":["2de"]},{"i":"dZ1arqz41Bg","t":"LE COURS : Statistiques (1)","c":"Yvan Monka","d":2008,"m":"Maths","th":"Statistiques","lv":["2de"]},{"i":"dmLTk2lNlfM","t":"Programmation Python - SNT","c":"Les Bons Profs","d":300,"m":"NSI","th":"Algorithmique","lv":["2de"]},{"i":"VmOPhT4HFNE","t":"Apprendre les bases de la programmation - Tutoriel Python #1/7","c":"Yvan Monka","d":383,"m":"NSI","th":"Algorithmique","lv":["2de"]},{"i":"5LdYJ_589vc","t":"Règles du DUET et OCTET (Stabilité, LEWIS) - Physique-Chimie","c":"Paul Olivier","d":289,"m":"Physique-Chimie","th":"Matière","lv":["2de"]},{"i":"J8Q24Q2x9d8","t":"Déterminer la COMPOSITION d'un ATOME - Physique-Chimie (collège, lycée)","c":"Paul Olivier","d":331,"m":"Physique-Chimie","th":"Matière","lv":["2de"]},{"i":"Zzt6HpCXvnM","t":"Décrire un MOUVEMENT - Physique-Chimie (collège, lycée)","c":"Paul Olivier","d":213,"m":"Physique-Chimie","th":"Mouvement","lv":["2de"]},{"i":"G40MRFzjIc4","t":"Mouvement : trajectoire et vitesse 🔟/🔟 Quiz pour réviser - Collège","c":"Paul Olivier","d":261,"m":"Physique-Chimie","th":"Mouvement","lv":["2de"]},{"i":"Elr_nqR26Eg","t":"Signaux et capteurs électriques - cours de seconde de physique chimie","c":"Les génies des sciences","d":747,"m":"Physique-Chimie","th":"Ondes","lv":["2de"]},{"i":"-8U6JuXoKWk","t":"Signal sonore périodique 💪 période & fréquence - Physique Chimie","c":"Paul Olivier","d":137,"m":"Physique-Chimie","th":"Ondes","lv":["2de"]},{"i":"wY6qsbECrJE","t":"Étapes et acteurs de la socialisation - SES","c":"Les Bons Profs","d":376,"m":"SES","th":"Sociologie","lv":["2de"]},{"i":"qwtabZAMC80","t":"Le travail de l'économiste, du sociologue et du politiste - SES","c":"Les Bons Profs","d":426,"m":"SES","th":"Économie","lv":["2de"]},{"i":"HnweTReVJaY","t":"Microbiote humain et santé (SVT 2de)","c":"Éditions Lelivrescolaire.fr","d":96,"m":"SVT","th":"Corps humain","lv":["2de"]},{"i":"pJ3zVnNWKP0","t":"Le microbiote humain - SVT","c":"Les Bons Profs","d":409,"m":"SVT","th":"Corps humain","lv":["2de"]},{"i":"wR9PE9tTIu0","t":"Cours Seconde - SVT","c":"MemoClasse","d":526,"m":"SVT","th":"La Terre","lv":["2de"]},{"i":"-MrIqqLWKt4","t":"La Terre, la vie et le vivant - Cours de SVT Seconde","c":"Simpliste","d":1629,"m":"SVT","th":"La Terre","lv":["2de"]},{"i":"_bMvIWUtuBU","t":"Méthodologie de la compréhension orale","c":"Les Bons Profs","d":383,"m":"Anglais","th":"Compréhension","lv":["1re"]},{"i":"2MuWK8iE4VA","t":"Compréhension orale anglais - Teen millionaires + corrigé (B1)","c":"CO Anglais","d":99,"m":"Anglais","th":"Oral","lv":["1re"]},{"i":"S7rZeIODFBc","t":"La laïcité, un moyen pour vivre ensemble - Les Clés de la laïcité","c":"Lumni","d":238,"m":"EMC","th":"Vivre ensemble","lv":["1re"]},{"i":"_qxBIFLU68I","t":"Trouver un plan de commentaire au bac français - La méthode pas-à-pas ! ✨✨✨","c":"Ta coach de français","d":1183,"m":"Français","th":"EAF - méthode","lv":["1re"]},{"i":"DB3Rev1aHKY","t":"Bac français 2027 : 20/20 au commentaire avec ma méthode complète (brouillon + rédaction)","c":"Selene sauve ton bac 🫡","d":1192,"m":"Français","th":"EAF - méthode","lv":["1re"]},{"i":"93J2babROOw","t":"Réussir la dissertation au bac français - Objectif 20/20 ! 🤓","c":"Ta coach de français","d":765,"m":"Français","th":"EAF - méthode","lv":["1re"]},{"i":"8BB-nVQ6sbg","t":"Bac français 2027 : 20/20 à la dissertation avec ma méthode complète (brouillon + rédaction)","c":"Selene sauve ton bac 🫡","d":764,"m":"Français","th":"EAF - méthode","lv":["1re"]},{"i":"IbXjB8IoZW8","t":"ORAL DU BAC FRANÇAIS 2027 - Comment ça se passe ? 💡","c":"Ta coach de français","d":209,"m":"Français","th":"EAF - méthode","lv":["1re"]},{"i":"IsSEqH8tgg8","t":"Analyse linéaire : la fiche parfaite pour réviser l'oral du bac de français","c":"Selene sauve ton bac 🫡","d":194,"m":"Français","th":"EAF - méthode","lv":["1re"]},{"i":"3JbTDFHJY64","t":"🎭 Analyser une pièce de théâtre - 💡 RÉVISION EXPRESS","c":"Ta coach de français","d":559,"m":"Français","th":"EAF - méthode","lv":["1re"]},{"i":"i40yhzs956M","t":"🤩 Interpréter un texte - Analyse les procédés comme un pro !","c":"Ta coach de français","d":841,"m":"Français","th":"EAF - méthode","lv":["1re"]},{"i":"N6rytnRMQ8I","t":"Commentaire sur un poème ✏️🎼 : méthode pas-à-pas","c":"Ta coach de français","d":1081,"m":"Français","th":"EAF - méthode","lv":["1re"]},{"i":"6x_ljBTPr5E","t":"Un poème tombe au commentaire ? Voici 5 réflexes pour l'analyser au bac de français","c":"Un Cours de 5 Minutes","d":355,"m":"Français","th":"EAF - méthode","lv":["1re"]},{"i":"Flwt6dV-sXM","t":"Réviser le roman - SPÉCIAL BAC FRANÇAIS 💪💪","c":"Ta coach de français","d":566,"m":"Français","th":"EAF - méthode","lv":["1re"]},{"i":"wbzRnSqHan4","t":"Oral de français : Comment réussir l'analyse linéaire et avoir 20/20 (GUIDE ULTIME)","c":"Maxime Lim","d":1312,"m":"Français","th":"EAF - méthode","lv":["1re"]},{"i":"L87HeuqvzT8","t":"20/20 à la dissertation de français : GUIDE ULTIME 2026","c":"Maxime Lim","d":710,"m":"Français","th":"EAF - méthode","lv":["1re"]},{"i":"Dj4KV2XEJV0","t":"Derniers Conseils pour les écrits du BAC de FRANÇAIS ! 💪🇫🇷","c":"Un Cours de 5 Minutes","d":351,"m":"Français","th":"EAF - méthode","lv":["1re"]},{"i":"ESSv170UUhI","t":"Le programme de français 2027, expliqué","c":"Selene sauve ton bac 🫡","d":966,"m":"Français","th":"EAF - méthode","lv":["1re"]},{"i":"wtz886vHa4Q","t":"Bac de français : l’explication linéaire à l’oral avec @athena_sol","c":"Lumni","d":208,"m":"Français","th":"EAF - oral","lv":["1re"]},{"i":"rF8UnBuGhU4","t":"L'explication linéaire - Oral de français","c":"L'Antiseche","d":380,"m":"Français","th":"EAF - oral","lv":["1re"]},{"i":"HY7RNwv2CzQ","t":"Histoire de la poésie : 19e siècle - Français Première","c":"Les Bons Profs","d":413,"m":"Français","th":"La poésie","lv":["1re"]},{"i":"Q48qrfPx-Ac","t":"Réviser la poésie au bac - LE GUIDE ULTIME 💡","c":"Ta coach de français","d":742,"m":"Français","th":"La poésie","lv":["1re"]},{"i":"K-UCyYoZL_4","t":"Le roman du XVIIIe au XXe siècle","c":"AuFutur","d":172,"m":"Français","th":"Le roman","lv":["1re"]},{"i":"bwIP41VU7ok","t":"Le roman du XVIe eu XVIIIe siècle","c":"AuFutur","d":147,"m":"Français","th":"Le roman","lv":["1re"]},{"i":"mWFVMDMfkPo","t":"Histoire du théâtre au 17e siècle - Français Première","c":"Les Bons Profs","d":203,"m":"Français","th":"Le théâtre","lv":["1re"]},{"i":"78E6UpxtPbM","t":"Histoire du théâtre au 20e - Français Première","c":"Les Bons Profs","d":379,"m":"Français","th":"Le théâtre","lv":["1re"]},{"i":"c12nBDH1jaE","t":"L'Humanisme - Littérature d'idées","c":"Les Bons Profs","d":568,"m":"Français","th":"Littérature d'idées","lv":["1re"]},{"i":"ANYV02uv2pk","t":"La poésie du XVIe au XVIIIe siècle","c":"AuFutur","d":167,"m":"Français","th":"Littérature d'idées","lv":["1re"]},{"i":"lqHIjzoYoR4","t":"TERMINALE : dynamiques territoriales, coopération et tensions dans la mondialisation","c":"Lionel Lacoux","d":1014,"m":"Géographie","th":"Territoires","lv":["1re"]},{"i":"n9_O7A6P-00","t":"La France : les dynamiques différenciées des territoires transfrontaliers (Géographie Tle)","c":"Éditions Lelivrescolaire.fr","d":131,"m":"Géographie","th":"Territoires","lv":["1re"]},{"i":"o_14NigHALY","t":"HGGSP PREMIERE La démocratie, les démocraties : quelles caractéristiques aujourd'hui ?","c":"Lionel Lacoux","d":514,"m":"HGGSP","th":"Démocratie","lv":["1re"]},{"i":"YnoFiT-ezak","t":"HGGSP PREMIÈRE La démocratie directe et la démocratie représentative","c":"Lionel Lacoux","d":949,"m":"HGGSP","th":"Démocratie","lv":["1re"]},{"i":"fDbLJpRTo3E","t":"L’Europe entre restauration et révolution (1814‑1848) (Histoire 1re)","c":"Éditions Lelivrescolaire.fr","d":128,"m":"Histoire","th":"Nation et Europe","lv":["1re"]},{"i":"La4sm8FgMEo","t":"PREMIERES - L'EUROPE DU CONGRÈS DE VIENNE (1814-1848)","c":"Le Labo d'Histoire-Géo","d":364,"m":"Histoire","th":"Nation et Europe","lv":["1re"]},{"i":"IY_x9TrnyOQ","t":"PREMIERE La Révolution Française et l'Empire, une conception nouvelle de la Nation 1/3","c":"Lionel Lacoux","d":399,"m":"Histoire","th":"Révolution et Empire","lv":["1re"]},{"i":"nnMNL9_LVNc","t":"PREMIERE - LA NATION EN RÉVOLUTION (1789-1793)","c":"Le Labo d'Histoire-Géo","d":383,"m":"Histoire","th":"Révolution et Empire","lv":["1re"]},{"i":"WVYWdN13kPE","t":"LE COURS : Fonctions du second degré","c":"Yvan Monka","d":861,"m":"Maths","th":"Algèbre","lv":["1re"]},{"i":"tc9wvbYuZts","t":"LE COURS : Équations du second degré","c":"Yvan Monka","d":1075,"m":"Maths","th":"Algèbre","lv":["1re"]},{"i":"uMSNllPBFhQ","t":"LE COURS : La dérivation","c":"Yvan Monka","d":2089,"m":"Maths","th":"Analyse","lv":["1re"]},{"i":"8I6dotcdW3I","t":"LE COURS : Les suites","c":"Yvan Monka","d":1716,"m":"Maths","th":"Analyse","lv":["1re"]},{"i":"dII7myZuLvo","t":"LE COURS : Produit scalaire","c":"Yvan Monka","d":1122,"m":"Maths","th":"Géométrie","lv":["1re"]},{"i":"GHPvfaHnysg","t":"Calculer un produit scalaire - Première S","c":"Yvan Monka","d":431,"m":"Maths","th":"Géométrie","lv":["1re"]},{"i":"R8bjZpJFeHg","t":"PROBABILITÉS - Maîtriser les arbres !","c":"Hedacademy","d":710,"m":"Maths","th":"Probabilités","lv":["1re"]},{"i":"Qe9nGCgINqQ","t":"Replay Cours - 1ère","c":"Droles2Maths","d":2353,"m":"Maths","th":"Probabilités","lv":["1re"]},{"i":"GiKdetLM73E","t":"LES TABLEAUX PYTHON - Spé NSI","c":"NOVELCLASS","d":503,"m":"NSI","th":"Python","lv":["1re"]},{"i":"37aBqBn4Rug","t":"Structures des données - NSI","c":"Les Bons Profs","d":109,"m":"NSI","th":"Python","lv":["1re"]},{"i":"DNVuYTDT92k","t":"Comment faire un TABLEAU D'AVANCEMENT ? ✅ Méthode simple - 1ère spé","c":"Paul Olivier","d":331,"m":"Physique-Chimie","th":"Chimie","lv":["1re"]},{"i":"wxejdhZ1L4I","t":"Mélanges stœchiométriques et tableau d'avancement - 1ère spé","c":"Paul Olivier","d":169,"m":"Physique-Chimie","th":"Chimie","lv":["1re"]},{"i":"zlyIYtWWCkg","t":"Énergie cinétique et vitesse - Collège","c":"Paul Olivier","d":335,"m":"Physique-Chimie","th":"Énergie","lv":["1re"]},{"i":"0MUzQFwemHY","t":"Études énergétiques en mécanique (énergie cinétique, mécanique) - première spé physique chimie","c":"Les génies des sciences","d":861,"m":"Physique-Chimie","th":"Énergie","lv":["1re"]},{"i":"ONC8Euh-kCc","t":"SES première - Comment un marché concurrentiel fonctionne-t-il ?","c":"La Boîte à Bac","d":672,"m":"SES","th":"Marchés","lv":["1re"]},{"i":"oszFBmOZ7Ls","t":"SES 1re - Le marché concurrentiel","c":"Annabac","d":178,"m":"SES","th":"Marchés","lv":["1re"]},{"i":"szRcxZB8sCM","t":"SES première - Socialisation et comportement des individus","c":"La Boîte à Bac","d":665,"m":"SES","th":"Socialisation","lv":["1re"]},{"i":"WFsoiL0-FMY","t":"SES 1re - La socialisation","c":"Annabac","d":217,"m":"SES","th":"Socialisation","lv":["1re"]},{"i":"QN3X98hc_-c","t":"Mutations et variabilité génétique - 1ère spé SVT","c":"Madame SVT","d":340,"m":"SVT","th":"Génétique","lv":["1re"]},{"i":"YC67U3e_tOk","t":"L'expression du patrimoine génétique - 1ère spé SVT","c":"Madame SVT","d":446,"m":"SVT","th":"Génétique","lv":["1re"]},{"i":"PVo-VO376GI","t":"Ecosystemes et Environnement - 1ere SVT","c":"NOVELCLASS","d":332,"m":"SVT","th":"Écosystèmes","lv":["1re"]},{"i":"lZSh8jlTObs","t":"Les services écosystémiques et leur gestion - SVT","c":"Mathrix","d":689,"m":"SVT","th":"Écosystèmes","lv":["1re"]},{"i":"cOYxMNE3ZbQ","t":"L'épreuve du grand oral, avec @mathildestudy - TakTik","c":"Lumni","d":174,"m":"Grand oral","th":"Méthode","lv":["Tle","Tle techno"]},{"i":"ItpCrUAjGnw","t":"RÉUSSIR SON GRAND ORAL (ft. Eddy Moniot)","c":"L'Antiseche","d":562,"m":"Grand oral","th":"Méthode","lv":["Tle","Tle techno"]},{"i":"Ek0FtOL_kQk","t":"1H pour construire un Grand Oral de A à Z","c":"L'aigle en Prépa","d":549,"m":"Grand oral","th":"Méthode","lv":["Tle","Tle techno"]},{"i":"Uuwijm5RdLs","t":"Grand Oral : comment avoir 20 ? 🏆","c":"Les Sherpas - Étudiants","d":734,"m":"Grand oral","th":"Méthode","lv":["Tle","Tle techno"]},{"i":"_EacAPa-1mw","t":"Mers et océans : vecteurs essentiels de la mondialisation (Géographie Tle)","c":"Éditions Lelivrescolaire.fr","d":142,"m":"Géographie","th":"Mondialisation","lv":["Tle"]},{"i":"5-YWfiHdaPI","t":"Des territoires inégalement intégrés à la mondialisation (Géographie Tle)","c":"Éditions Lelivrescolaire.fr","d":211,"m":"Géographie","th":"Mondialisation","lv":["Tle"]},{"i":"DX4mJivCVKs","t":"Quelle action publique pour l'environnement (1/2) - Terminale SES (Bac 2027)","c":"BrefSES","d":414,"m":"HGGSP","th":"Environnement","lv":["Tle"]},{"i":"0FsUOvJ_Jms","t":"L'environnement entre exploitation et protection - Intro, Axe 1 et 2 [HGGSP Terminale]","c":"Vincent Pauthier","d":341,"m":"HGGSP","th":"Environnement","lv":["Tle"]},{"i":"lk6UL1avToI","t":"Le modèle de Clausewitz - HGGSP","c":"La Boîte à Bac","d":994,"m":"HGGSP","th":"Guerre et paix","lv":["Tle"]},{"i":"eB5F1X5dqds","t":"TERMINALE HGGSP : formes de conflits et tentatives de paix dans le monde actuel","c":"Lionel Lacoux","d":515,"m":"HGGSP","th":"Guerre et paix","lv":["Tle"]},{"i":"4Rjmo-qbLLk","t":"La Décolonisation et l'émergence du tiers monde - Bipolarisation 2/2 Terminale Thème 2 Chapitre 2 3e","c":"La Boîte à Bac","d":1137,"m":"Histoire","th":"Décolonisation","lv":["Tle"]},{"i":"unZBvEg1m-U","t":"cours histoire terminale décolonisation révision Bac pro","c":"HISTOIRE D'EN SAVOIR +","d":617,"m":"Histoire","th":"Décolonisation","lv":["Tle"]},{"i":"sCcy4IQKits","t":"LE COURS : Fonction exponentielle","c":"Yvan Monka","d":1355,"m":"Maths","th":"Analyse","lv":["Tle"]},{"i":"I4HkvkpqjNw","t":"Etudier une fonction exponentielle 1/3 : Limites","c":"Yvan Monka","d":521,"m":"Maths","th":"Analyse","lv":["Tle"]},{"i":"yiQ4Z5FdFQ8","t":"Dériver une fonction logarithme","c":"Yvan Monka","d":369,"m":"Maths","th":"Analyse","lv":["Tle"]},{"i":"VJns0RfVWGg","t":"LE COURS : Logarithme népérien","c":"Yvan Monka","d":1096,"m":"Maths","th":"Analyse","lv":["Tle"]},{"i":"bQ-eS1zZCdw","t":"LE COURS : Les primitives","c":"Yvan Monka","d":1268,"m":"Maths","th":"Analyse","lv":["Tle"]},{"i":"ZeSIGdRfMVE","t":"COMMENT CALCULER DES PRIMITIVES ? Term Spé Maths","c":"Hedacademy","d":949,"m":"Maths","th":"Analyse","lv":["Tle"]},{"i":"EoT48VtnUJ4","t":"LE COURS : Vecteurs, droites et plans de l'espace","c":"Yvan Monka","d":1324,"m":"Maths","th":"Géométrie","lv":["Tle"]},{"i":"aostYZK5jkE","t":"LE COURS : Positions relatives, parallélisme, orthogonalité dans l'espace","c":"Yvan Monka","d":1262,"m":"Maths","th":"Géométrie","lv":["Tle"]},{"i":"xMmfPUoBTtM","t":"LE COURS : Loi binomiale","c":"Yvan Monka","d":1934,"m":"Maths","th":"Probabilités","lv":["Tle"]},{"i":"1gMq2TJwSh0","t":"Calculer une probabilité avec une loi binomiale","c":"Yvan Monka","d":557,"m":"Maths","th":"Probabilités","lv":["Tle"]},{"i":"jfN68J1xj4w","t":"Base de données - NSI","c":"Les Bons Profs","d":244,"m":"NSI","th":"Bases de données","lv":["Tle"]},{"i":"jDXU8PvsG3U","t":"LES BASES DE DONNÉES - NSI Terminale","c":"NOVELCLASS","d":227,"m":"NSI","th":"Bases de données","lv":["Tle"]},{"i":"ZAJmoK22Q1o","t":"L’État - Philosophie","c":"Les Bons Profs","d":666,"m":"Philosophie","th":"L'État","lv":["Tle","Tle techno"]},{"i":"y-uXAFXwSwA","t":"L'Etat - Notion au programme du bac de philosophie 2026","c":"La Boîte à Bac","d":1398,"m":"Philosophie","th":"L'État","lv":["Tle","Tle techno"]},{"i":"aB0N0lMsR8M","t":"Freud, les zones d'ombre de la conscience - Philosophie","c":"Les Bons Profs","d":587,"m":"Philosophie","th":"La conscience","lv":["Tle","Tle techno"]},{"i":"sNNnJ_9cj2w","t":"La conscience : la conscience peut-elle nous tromper ? - Philo Terminale Bac","c":"Annabac","d":325,"m":"Philosophie","th":"La conscience","lv":["Tle","Tle techno"]},{"i":"8gp2K2nJZhA","t":"La Liberté - Notion au programme du bac de philosophie 2026","c":"La Boîte à Bac","d":1129,"m":"Philosophie","th":"La liberté","lv":["Tle","Tle techno"]},{"i":"w8qsRVTKih8","t":"La Liberté - Les Clés de la philo","c":"Lumni","d":170,"m":"Philosophie","th":"La liberté","lv":["Tle","Tle techno"]},{"i":"_rAk4jVTHDc","t":"La vérité - Philosophie","c":"Les Bons Profs","d":638,"m":"Philosophie","th":"La vérité","lv":["Tle"]},{"i":"Yk9usJn1tsE","t":"Le travail - Philosophie","c":"Les Bons Profs","d":559,"m":"Philosophie","th":"Le travail","lv":["Tle"]},{"i":"n5BpkETXrLM","t":"La dissertation - Philosophie","c":"L'Antiseche","d":491,"m":"Philosophie","th":"Méthode","lv":["Tle","Tle techno"]},{"i":"QdifHVKMWho","t":"Comment avoir 20/20 à la DISSERTATION de PHILOSOPHIE : la Méthode Ultime 📚✍","c":"Les Sherpas - Étudiants","d":427,"m":"Philosophie","th":"Méthode","lv":["Tle","Tle techno"]},{"i":"9Jh04C_6LDA","t":"Explication de texte : brouillon et introduction - Philosophie","c":"Les Bons Profs","d":472,"m":"Philosophie","th":"Méthode","lv":["Tle","Tle techno"]},{"i":"pvkw47tSyyI","t":"L'explication de texte - Philosophie","c":"L'Antiseche","d":409,"m":"Philosophie","th":"Méthode","lv":["Tle","Tle techno"]},{"i":"sQ9-pbUgh0M","t":"TRANSFORMATIONS ACIDE - BASE ✅ Cours complet 💪 Terminale spécialité","c":"Paul Olivier","d":707,"m":"Physique-Chimie","th":"Chimie","lv":["Tle"]},{"i":"Qe6VFTmTMIQ","t":"Constante d'acidité ✅ Ka & pKa (acide - base) 💪 Terminale spécialité","c":"Paul Olivier","d":232,"m":"Physique-Chimie","th":"Chimie","lv":["Tle"]},{"i":"YebURH6uD_Q","t":"2e loi de Newton 💪 Terminale spécialité - Mécanique","c":"Paul Olivier","d":230,"m":"Physique-Chimie","th":"Mécanique","lv":["Tle"]},{"i":"dhVXGV_j6Sw","t":"Les 3 lois de Newton - cours de lycée","c":"Les génies des sciences","d":625,"m":"Physique-Chimie","th":"Mécanique","lv":["Tle"]},{"i":"xXpmFuT-9yg","t":"Sources et défis de la croissance économique (1/2) - Terminale SES (Bac 2027)","c":"BrefSES","d":781,"m":"SES","th":"Croissance","lv":["Tle"]},{"i":"whYOwB_RXyk","t":"Commerce international et internationalisation de la production (1/2) - Terminale SES (Bac 2027)","c":"BrefSES","d":889,"m":"SES","th":"Mondialisation","lv":["Tle"]},{"i":"4UJbyApHaYk","t":"COURS DE TERMINALE SPÉCIALITÉ SVT : CHAP.1: STABILITÉ GÉNÉTIQUE ET ÉVOLUTION CLONALE","c":"Bio Logique","d":556,"m":"SVT","th":"Génétique","lv":["Tle"]},{"i":"T-lZB6r1s2s","t":"COURS DE TERMINALE SPÉCIALITÉ SVT : CHAP.4: L'ÉVOLUTION DES GÉNOMES -Bio Logique","c":"Bio Logique","d":1048,"m":"SVT","th":"Génétique","lv":["Tle"]},{"i":"TVoqiqwtbsA","t":"Au coeur des organes : L'immunité adaptative","c":"Inserm","d":390,"m":"SVT","th":"Immunité","lv":["Tle"]},{"i":"sFhmJyZQwIU","t":"Réussir l'essai (1re techno)","c":"Annabac","d":179,"m":"Français","th":"EAF techno — l'essai","lv":["1re techno"]},{"i":"hEsw8VxhM5k","t":"L'essai expliqué (Lumni)","c":"Lumni","d":285,"m":"Français","th":"EAF techno — l'essai","lv":["1re techno"]},{"i":"yh_-mTjQQ08","t":"Réussir la contraction de texte","c":"Annabac","d":164,"m":"Français","th":"EAF techno — l'essai","lv":["1re techno"]},{"i":"LpDxJk-YKlA","t":"La méthode de l'essai, pas à pas","c":"Les rouages du français","d":745,"m":"Français","th":"EAF techno — l'essai","lv":["1re techno"]},{"i":"yGw42PBWIto","t":"La contraction de texte expliquée","c":"Lumni","d":228,"m":"Français","th":"EAF techno — l'essai","lv":["1re techno"]},{"i":"zTLtY1_-nos","t":"Contraction de texte et essai","c":"Mère Gramm","d":206,"m":"Français","th":"EAF techno — l'essai","lv":["1re techno"]},{"i":"SHIdAMU9LDw","t":"Méthode de l'essai","c":"Schola Litterarum","d":607,"m":"Français","th":"EAF techno — l'essai","lv":["1re techno"]},{"i":"SVs7k73cuyI","t":"Méthodologie de l'épreuve écrite/thématique du Bac - ST2S","c":"Les Bons Profs","d":349,"m":"ST2S","th":"Méthode","lv":["1re techno"]},{"i":"cLkfZO6q7aQ","t":"présentation de la voie Sciences et Techniques Sanitaires et Sociales (ST2S)","c":"Cité scolaire Soult-Riess de Mazamet","d":155,"m":"ST2S","th":"STSS","lv":["1re techno"]},{"i":"pwj9thpMMlo","t":"La santé - 1ère STSS","c":"Prof ST2S","d":262,"m":"ST2S","th":"STSS","lv":["1re techno"]},{"i":"dzgFckW82_M","t":"COURS STSS - La santé individuelle et collective #cours #revision","c":"M.ST2S","d":197,"m":"ST2S","th":"STSS","lv":["1re techno"]},{"i":"EZ-Vp78wMck","t":"Révision: La protection sociale ST2S","c":"ST2S Maupassant","d":1192,"m":"ST2S","th":"STSS","lv":["1re techno"]},{"i":"KBZeeJWxdrQ","t":"STSS - Risque social et Protection sociale","c":"ST2S Claude Monet LH","d":365,"m":"ST2S","th":"STSS","lv":["1re techno"]},{"i":"QOSxZptYHlY","t":"3 ANNÉES EN ARTS APPLIQUÉS STD2A - LE BILAN","c":"Jonathan_LDF","d":504,"m":"STD2A","th":"Design","lv":["1re techno"]},{"i":"AlAmaHM-EfA","t":"[KIFFE TA VOIE] Bac sciences et technologies du design et des arts appliqués (STD2A)","c":"Orientation Créteil","d":194,"m":"STD2A","th":"Design","lv":["1re techno"]},{"i":"16cZN3UjbgY","t":"La Première STHR (Sciences et Technologies de la restauration et de l’Hôtellerie)","c":"Le Biotope Étudiant","d":521,"m":"STHR","th":"Hôtellerie","lv":["1re techno"]},{"i":"c7eSZNUqv0g","t":"Idées reçues sur l'hôtellerie-restauration : Paco","c":"Faculté des métiers ","d":171,"m":"STHR","th":"Hôtellerie","lv":["1re techno"]},{"i":"VrsiJdXXnsI","t":"Formations Hôtellerie Restauration Ifac Campus des métiers Brest Finistère","c":"Ifac - Sup'Ifac Campus des Métiers","d":43,"m":"STHR","th":"Hôtellerie","lv":["1re techno"]},{"i":"EE3VwReqAuE","t":"L'énergie et ses enjeux - physique de première sti2D","c":"Les génies des sciences","d":902,"m":"STI2D","th":"Énergie","lv":["1re techno"]},{"i":"k21Ie2h5RRA","t":"STI2D - Energies et environnement","c":"CANOPÉ NORMANDIE","d":179,"m":"STI2D","th":"Énergie","lv":["1re techno"]},{"i":"SAvYHuK42eY","t":"Première STMG - DROIT","c":"MrWalker","d":327,"m":"STMG","th":"Droit","lv":["1re techno"]},{"i":"vrRvPI7EVJg","t":"Première STMG - SGN","c":"MrWalker","d":334,"m":"STMG","th":"Gestion","lv":["1re techno"]},{"i":"gD56Vbx0_Go","t":"Spécialité Systèmes d'Information de Gestion en série STMG","c":"Jean-Paul GOURDANT","d":154,"m":"STMG","th":"Gestion","lv":["1re techno"]},{"i":"0HbpIAgY5Sk","t":"Première STMG - Management","c":"MrWalker","d":396,"m":"STMG","th":"Management","lv":["1re techno"]},{"i":"3ObKgGda95A","t":"Première STMG - ECONOMIE","c":"MrWalker","d":315,"m":"STMG","th":"Économie","lv":["1re techno"]},{"i":"4lsSEjub1Lg","t":"BAC STMG - Grand oral 2024","c":"Nicolas Ernst","d":292,"m":"Grand oral","th":"Méthode","lv":["Tle techno"]},{"i":"yFk9EfppXX8","t":"Choisir son sujet de Grand oral","c":"Impala by Myfuture","d":185,"m":"Grand oral","th":"Méthode","lv":["Tle techno"]},{"i":"pXp_8c8a5v8","t":"Réussir le bac de philosophie","c":"Coursitout","d":1140,"m":"Philosophie","th":"Méthode","lv":["Tle techno"]},{"i":"HQNqrbkybsg","t":"BAC STSS - Révisions programme 1ère STSS","c":"Prof ST2S","d":482,"m":"ST2S","th":"BPH","lv":["Tle techno"]},{"i":"Gx4ftXCh5yE","t":"La réponse immunitaire","c":"Le cours de bio","d":370,"m":"ST2S","th":"BPH","lv":["Tle techno"]},{"i":"-fFLQj2pd3c","t":"Qu'est-ce que la santé publique ? - Terminale ST2S","c":"Les Bons Profs","d":302,"m":"ST2S","th":"STSS","lv":["Tle techno"]},{"i":"qXlIaqRhveM","t":"Révisions du programme de terminale","c":"Prof ST2S","d":443,"m":"ST2S","th":"STSS","lv":["Tle techno"]},{"i":"SYa0BxItN2E","t":"Le système de santé français","c":"Prof-STMS-DUMOULIN","d":475,"m":"ST2S","th":"STSS","lv":["Tle techno"]},{"i":"WRnH01jYAdU","t":"Les politiques de santé publique","c":"ST2S_EASY ","d":974,"m":"ST2S","th":"STSS","lv":["Tle techno"]},{"i":"9CCDHnD4gF0","t":"Terminale STMG - MSGN","c":"MrWalker","d":295,"m":"STMG","th":"Management","lv":["Tle techno"]},{"i":"GLBFN2kFlnE","t":"Les questions classiques posées en MSGN (management) au Bac STMG","c":"Guillaume Ravet","d":312,"m":"STMG","th":"Management","lv":["Tle techno"]}];
+const PROG   = {"2de":{"short":"tronc commun","resume":"L'année du choix : c'est en seconde qu'on décide des spécialités. Le tronc commun reste la base de tout, y compris pour les séries techno.","matieres":[{"n":"Français","e":"📖","c":"#D9462F","att":"Lire et analyser un roman, un poème, une pièce de théâtre ; construire un commentaire de texte.","dom":[["Le roman","du XVIIIe au XXIe siècle"],["La poésie","du XVIe au XXIe siècle"],["Le théâtre","du XVIIe au XXIe siècle"],["Littérature d'idées","presse, essai, argumentation"],["Méthode","commentaire de texte, lecture analytique"]]},{"n":"Maths","e":"🔢","c":"#23618F","att":"Manier les nombres, les fonctions, les vecteurs et les statistiques du programme commun.","dom":[["Nombres et calcul","ensembles de nombres, équations, inéquations"],["Fonctions","généralités, variations, lectures graphiques"],["Géométrie","vecteurs, repérage, droites du plan"],["Statistiques et probabilités","séries, fréquences, probabilités simples"],["Algorithmique","notion d'algorithme"]]},{"n":"Physique-Chimie","e":"⚗️","c":"#1F6FB2","att":"Décrire la matière, les mouvements, les ondes et l'énergie — avec les mesures.","dom":[["Matière","constitution, transformations"],["Mouvement","vitesse, forces, interactions"],["Ondes et signaux","lumière, son, signaux électriques"],["Énergie","formes, conversion, bilan"]]},{"n":"SVT","e":"🌿","c":"#2E8B57","att":"Comprendre le vivant, la Terre et le corps humain : trois échelles, une même démarche.","dom":[["La Terre et le vivant","organisation, biodiversité"],["Enjeux planétaires","climat, alimentation, ressources"],["Corps humain et santé","organisation, fonctionnement, prévention"]]},{"n":"Numérique","e":"💻","c":"#37496B","att":"SNT : comprendre ce que fait un ordinateur, un réseau, une donnée.","dom":[["Données","représentation et traitement"],["Internet","réseaux, services, sécurité"],["Algorithmique","premiers programmes en Python"]]},{"n":"Histoire","e":"🏛️","c":"#9B5320","att":"Situer la Méditerranée médiévale, la Renaissance, les Lumières et les révolutions.","dom":[["Méditerranée médiévale","empires, religions, échanges"],["XVe-XVIe siècles","Renaissance, humanisme, nouveaux mondes"],["XVIIIe siècle","Lumières, révolutions, Empire"]]},{"n":"Géographie","e":"🗺️","c":"#1F7A6C","att":"Décrire les équilibres fragiles entre sociétés et environnements.","dom":[["Sociétés et environnements","ressources, risques, climat"],["Territoires et populations","développement, inégalités"],["Mobilités","migrations, tourismes, transports"]]},{"n":"SES","e":"📊","c":"#B8860B","att":"Découvrir trois regards : économie, sociologie, science politique.","dom":[["Science économique","ménages, entreprises, marchés"],["Sociologie","groupes, socialisation, liens sociaux"],["Science politique","pouvoir, État, opinion"]]},{"n":"EMC","e":"⚖️","c":"#65489B","att":"Comprendre la laïcité et le pluralisme des convictions.","dom":[["Laïcité","principe, histoire, applications"],["Vivre ensemble","pluralisme, respect, débat"]]},{"n":"Anglais","e":"🇬🇧","c":"#B93A73","att":"Niveau B1 : comprendre, raconter, argumenter simplement.","dom":[["Compréhension","oral et écrit"],["Expression","grammaire, vocabulaire, prononciation"]]},{"n":"Espagnol","e":"🇪🇸","c":"#C0392B","att":"Niveau A2+/B1 : comprendre et s'exprimer sur des sujets du quotidien.","dom":[["Langue","grammaire, conjugaison"],["Culture","monde hispanique"]]}]},"1re":{"short":"générale · EAF","resume":"L'année du bac de français : les quatre objets d'étude, les œuvres, et deux épreuves à préparer dès septembre. Les spécialités démarrent en parallèle.","matieres":[{"n":"Français","e":"📖","c":"#D9462F","att":"Lire les quatre œuvres au programme, savoir les présenter, et maîtriser les deux exercices de l'écrit plus l'oral.","dom":[["Objet d'étude 1","La poésie du XIXe au XXIe siècle"],["Objet d'étude 2","La littérature d'idées du XVIe au XVIIIe siècle"],["Objet d'étude 3","Le roman et le récit du Moyen Âge au XXIe siècle"],["Objet d'étude 4","Le théâtre du XVIIe au XXIe siècle"],["Écrit","commentaire littéraire ou dissertation — 4 h"],["Oral","lecture linéaire, question de grammaire, présentation de l'œuvre — 20 min"]]},{"n":"Maths","e":"🔢","c":"#23618F","att":"Suites, second degré, dérivation, produit scalaire, probabilités conditionnelles.","dom":[["Algèbre","second degré, suites"],["Analyse","dérivation, variations"],["Géométrie","produit scalaire, repérage"],["Probabilités","conditionnement, indépendance"],["Algorithmique","programmes et simulation"]]},{"n":"Physique-Chimie","e":"⚗️","c":"#1F6FB2","att":"Réactions chimiques, énergie, champs et interactions.","dom":[["Chimie","réactions, avancement, dosages"],["Énergie","conversions, rendement"],["Mécanique","champs, forces, mouvement"],["Ondes","ondes mécaniques et sonores"]]},{"n":"SVT","e":"🌿","c":"#2E8B57","att":"Génétique, variation, écosystèmes, corps humain.","dom":[["Génétique","ADN, mutation, variation"],["Écosystèmes","services, dynamiques"],["Corps humain","communication, santé"]]},{"n":"SES","e":"📊","c":"#B8860B","att":"Marchés, socialisation, opinion et vote.","dom":[["Économie","marché, concurrence, défaillances"],["Sociologie","socialisation, groupes"],["Science politique","opinion, élections, engagement"]]},{"n":"HGGSP","e":"🌍","c":"#8D6E63","att":"Comprendre un enjeu mondial avec quatre regards : historique, géographique, géopolitique, politique.","dom":[["Démocratie","formes et expériences"],["Analyser un régime politique","outils, limites"],["Méthode","la composition et l'étude critique"]]},{"n":"NSI","e":"💻","c":"#37496B","att":"Programmer en Python, manipuler des structures de données.","dom":[["Python","variables, boucles, fonctions"],["Structures","listes, dictionnaires"],["Algorithmes","recherche, tri"]]},{"n":"Histoire","e":"🏛️","c":"#9B5320","att":"La Révolution, l'Empire, la nation et l'Europe au XIXe siècle.","dom":[["Révolution et Empire","1789-1815"],["Nation et Europe","1815-1914"],["Méthode","composition et étude critique de document"]]},{"n":"Géographie","e":"🗺️","c":"#1F7A6C","att":"Les dynamiques des territoires français et européens.","dom":[["Territoires","métropolisation, espaces productifs"],["France et Europe","inégalités, aménagement"]]},{"n":"Anglais","e":"🇬🇧","c":"#B93A73","att":"Niveau B1+/B2 : argumenter, comprendre des documents authentiques.","dom":[["Oral","présenter, débattre"],["Écrit","compréhension et expression"]]},{"n":"EMC","e":"⚖️","c":"#65489B","att":"Laïcité, droits et engagement au lycée.","dom":[["Laïcité et République","principes, débats"],["Engagement","citoyenneté, association"]]}]},"Tle":{"short":"générale · bac","resume":"La dernière ligne droite : philosophie obligatoire, deux spécialités, le Grand oral, et les épreuves de spécialité en mars. Le calendrier commande tout.","matieres":[{"n":"Philosophie","e":"🦉","c":"#6D4C41","att":"Construire une dissertation et une explication de texte ; comprendre les grandes notions du programme.","dom":[["Méthode","la dissertation, l'explication de texte"],["La conscience, l'inconscient","le sujet"],["La liberté, la loi","la politique"],["La vérité, la raison","la connaissance"],["Le travail, la technique","l'activité humaine"],["L'État, la justice","la société"]]},{"n":"Grand oral","e":"🎤","c":"#00838F","att":"Préparer deux questions, tenir 5 minutes seul, puis répondre 10 minutes.","dom":[["Questions","choisir, relier aux spécialités"],["Exposé","5 minutes sans notes"],["Entretien","arguments et projection"]]},{"n":"Maths","e":"🔢","c":"#23618F","att":"Exponentielle, logarithme, intégrales, probabilités continues, espace.","dom":[["Analyse","exponentielle, logarithme, primitives, intégrales"],["Probabilités","loi binomiale, échantillonnage"],["Géométrie","espace, vecteurs, plans"],["Algorithmique","et Python"]]},{"n":"Physique-Chimie","e":"⚗️","c":"#1F6FB2","att":"Deux grands blocs : mécanique et chimie, plus les ondes.","dom":[["Mécanique","lois de Newton, mouvement, énergie"],["Chimie","acides et bases, équilibres, synthèse"],["Ondes","diffraction, interférences"],["Électricité","circuits, condensateur"]]},{"n":"SVT","e":"🌿","c":"#2E8B57","att":"Génétique et évolution, immunité, corps humain.","dom":[["Génétique et évolution","mutations, brassage, histoire humaine"],["Immunité","défenses, vaccination, VIH"],["Corps humain","système nerveux, comportement"]]},{"n":"SES","e":"📊","c":"#B8860B","att":"Croissance, commerce mondial, inégalités et politiques publiques.","dom":[["Économie","croissance, productivité, commerce"],["Sociologie","inégalités, mobilité"],["Politiques publiques","redistribution, protection"]]},{"n":"HGGSP","e":"🌍","c":"#8D6E63","att":"Guerre et paix, environnement, patrimoine, connaissance.","dom":[["Guerre et paix","conflits, armement, diplomatie"],["Environnement","climat, négociations"],["Méthode","composition, étude critique, grand oral"]]},{"n":"Histoire","e":"🏛️","c":"#9B5320","att":"Les guerres mondiales, la décolonisation, le monde depuis 1945.","dom":[["Guerres mondiales","1914-1945"],["Après 1945","décolonisation, Guerre froide"],["Le monde depuis 1991","nouveaux conflits, mondialisation"]]},{"n":"Géographie","e":"🗺️","c":"#1F7A6C","att":"La France et ses territoires dans la mondialisation.","dom":[["Mondialisation","acteurs, flux"],["Territoires français","métropoles, outre-mer, littoraux"]]},{"n":"Anglais","e":"🇬🇧","c":"#B93A73","att":"Niveau B2 : comprendre, argumenter, réussir l'épreuve.","dom":[["Compréhension","audio et écrite"],["Expression","argumentation écrite et orale"]]},{"n":"NSI","e":"💻","c":"#37496B","att":"Bases de données, réseaux, algorithmes avancés.","dom":[["Bases de données","SQL, modèles"],["Réseaux","protocoles, sécurité"],["Algorithmique","complexité, arbres, graphes"]]}]},"1re techno":{"short":"séries techno","resume":"Première technologique : le bac de français est le même pour toutes les séries, avec des sujets adaptés. Et surtout, chaque série a ses spécialités — c'est là que tout se joue.","matieres":[{"n":"Français","e":"📖","c":"#D9462F","att":"Mêmes objets d'étude, mêmes épreuves, sujets adaptés à la série. La méthode reste identique : lire l'œuvre, la citer, répondre à la question posée.","dom":[["Objet d'étude 1","La poésie du XIXe au XXIe siècle"],["Objet d'étude 2","La littérature d'idées du XVIe au XVIIIe siècle"],["Objet d'étude 3","Le roman et le récit du Moyen Âge au XXIe siècle"],["Objet d'étude 4","Le théâtre du XVIIe au XXIe siècle"],["Écrit","commentaire ou dissertation — 4 h"],["Oral","lecture linéaire + entretien — 20 min"]]},{"n":"ST2S","e":"🩺","c":"#C2185B","att":"Sciences et techniques sanitaires et sociales + biologie et physiopathologie humaines. La série des métiers du soin et du social.","dom":[["STSS","santé, social, protection sociale, méthodologie"],["BPH","systèmes du corps humain, pathologies"],["Méthode","étude de situation, argumentation documentée"],["Poursuite","IFSI, paramédical, travail social"]]},{"n":"STMG","e":"🏢","c":"#1565C0","att":"Droit, économie, management et sciences de gestion : quatre regards sur l'entreprise.","dom":[["Droit et économie","règles, contrat, marchés"],["Management","organisations, décisions"],["Sciences de gestion","information, numérique"],["Spécialités Tle","gestion-finance, mercatique, RH, SIG"]]},{"n":"STI2D","e":"⚙️","c":"#455A64","att":"L'ingénierie par l'objet : énergie, matériaux, information.","dom":[["Enseignements","innovation, ingénierie durable"],["Spécialités Tle","EE, SIN, ITEC, AC"],["Méthode","démarche de projet, dossier technique"]]},{"n":"STD2A","e":"🖌️","c":"#8E24AA","att":"Design et arts appliqués : dessin, couleur, projet.","dom":[["Design","objet, espace, communication"],["Arts appliqués","démarche créative, planches"],["Culture","références et analyses"]]},{"n":"STHR","e":"🍽️","c":"#EF6C00","att":"Hôtellerie-restauration : sciences culinaires et gestion.","dom":[["Cuisine","techniques, hygiène, menus"],["Gestion hôtelière","coûts, accueil, organisation"]]},{"n":"Anglais","e":"🇬🇧","c":"#B93A73","att":"Niveau B1+/B2, orienté communication professionnelle.","dom":[["Oral","situations, échanges"],["Écrit","compréhension, messages"]]}]},"Tle techno":{"short":"séries techno","resume":"Terminale technologique : philosophie, spécialités de la série, Grand oral. Le dossier et le projet comptent autant que les notes.","matieres":[{"n":"Philosophie","e":"🦉","c":"#6D4C41","att":"Même épreuve qu'en générale, sujets adaptés : une dissertation ou une explication de texte claire et construite.","dom":[["Méthode","dissertation et explication de texte"],["Notions","la liberté, la vérité, l'État, la technique"],["Conseil","une copie simple et structurée vaut mieux qu'une copie ambitieuse et floue"]]},{"n":"ST2S","e":"🩺","c":"#C2185B","att":"STSS et BPH de terminale : politiques de santé, prévention, systèmes du corps.","dom":[["STSS","politiques sanitaires et sociales, méthodologie"],["BPH","pathologies, systèmes, examen clinique"],["Méthode","étude de situation, dossier documentaire"]]},{"n":"STMG","e":"🏢","c":"#1565C0","att":"Management, droit-économie et spécialité : préparer le dossier et l'oral.","dom":[["Management","stratégies, décisions"],["Droit et économie","contrats, marchés"],["Spécialité","gestion-finance, mercatique, RH ou SIG"]]},{"n":"STI2D","e":"⚙️","c":"#455A64","att":"Deux spécialités et un projet technologique à défendre.","dom":[["Spécialités","EE, SIN, ITEC, AC"],["Projet","démarche, dossier, soutenance"],["Méthode","argumenter des choix techniques"]]},{"n":"STD2A","e":"🖌️","c":"#8E24AA","att":"Projet de design et dossier personnel.","dom":[["Projet","démarche créative"],["Dossier","planches, argumentation"],["Oral","présenter sa démarche"]]},{"n":"Grand oral","e":"🎤","c":"#00838F","att":"5 minutes d'exposé, 10 minutes d'échange : le projet de la série est un très bon sujet.","dom":[["Questions","deux questions, lien avec les spécialités"],["Exposé","structure en 3 temps"],["Entretien","défendre ses choix"]]},{"n":"Anglais","e":"🇬🇧","c":"#B93A73","att":"Niveau B2 : l'oral du bac et la compréhension.","dom":[["Oral","présenter, argumenter"],["Écrit","compréhension"]]}]}};
+const LEVELS = ["2de","1re","Tle","1re techno","Tle techno"];
+const MORDER = ["Français","Philosophie","Grand oral","Maths","Physique-Chimie","SVT","SES","HGGSP","NSI","Histoire","Géographie","EMC","Anglais","Espagnol","ST2S","STMG","STI2D","STL","STD2A","STHR"];
+
+const $ = s => document.querySelector(s);
+const state = {lv:LEVELS[0], mat:"Tout", q:""};
+let seen = new Set(JSON.parse(localStorage.getItem("lyceetube_vus")||"[]"));
+const saveSeen = () => localStorage.setItem("lyceetube_vus", JSON.stringify([...seen]));
+
+function fmt(s){ if(!s) return ""; const m=Math.floor(s/60); const r=Math.round(s%60); return m+":"+String(r).padStart(2,"0"); }
+function matColor(m){ const d=document.querySelector('.matbtn[data-m="'+m+'"] .dot'); return d? d.style.background : "#16213C"; }
+
+/* ---- filtres niveau ---- */
+LEVELS.forEach(l=>{
+  const b=document.createElement("button");
+  b.className="lvbtn"; b.dataset.lv=l;
+  const p=PROG[l]||{};
+  b.innerHTML = l+"<small>"+(p.short||"cycle")+"</small>";
+  b.onclick=()=>{state.lv=l; state.mat="Tout"; render();};
+  $("#levels").appendChild(b);
+});
+const ball=document.createElement("button");
+ball.className="lvbtn"; ball.dataset.lv="Tout"; ball.innerHTML="TOUT<small>5 niveaux</small>";
+ball.onclick=()=>{state.lv="Tout"; state.mat="Tout"; render();};
+$("#levels").appendChild(ball);
+
+/* ---- filtres matière ---- */
+function buildMats(){
+  const mats = state.lv==="Tout" ? MORDER : (PROG[state.lv]? PROG[state.lv].matieres.map(x=>x.n) : []);
+  const box=$("#mats"); box.innerHTML="";
+  const mk=(n,label,color,icon)=>{
+    const b=document.createElement("button");
+    b.className="matbtn"+(state.mat===n?" on":""); b.dataset.m=n;
+    b.innerHTML='<span class="dot" style="background:'+color+'"></span>'+(icon?icon+" ":"")+label;
+    b.onclick=()=>{state.mat=n; render();};
+    box.appendChild(b);
+  };
+  mk("Tout","Tout","#16213C","");
+  mats.forEach(n=>{
+    const src = (PROG[state.lv]&&PROG[state.lv].matieres.find(x=>x.n===n)) || {c:"#16213C",e:""};
+    mk(n,n,src.c,src.e);
+  });
+}
+
+/* ---- rendu principal ---- */
+function render(){
+  buildMats();
+  document.querySelectorAll(".lvbtn").forEach(b=>b.classList.toggle("on",b.dataset.lv===state.lv));
+
+  const q = state.q.trim().toLowerCase();
+  let list = VIDEOS.filter(v=>{
+    if(state.lv!=="Tout" && !v.lv.includes(state.lv)) return false;
+    if(state.mat!=="Tout" && v.m!==state.mat) return false;
+    if(q){
+      const hay=(v.t+" "+v.c+" "+v.th+" "+v.m).toLowerCase();
+      if(!hay.includes(q)) return false;
+    }
+    return true;
+  });
+
+  const title = state.lv==="Tout" ? "Tout le primaire" : state.lv;
+  $("#lvTitle").textContent = title;
+  const p = PROG[state.lv];
+  $("#lvSub").textContent = state.lv==="Tout"
+    ? "Toutes les vidéos, du CP au CM2. Filtre par matière pour réduire."
+    : (p? p.resume : "");
+
+  // progression
+  const tot = list.length, vus = list.filter(v=>seen.has(v.i)).length;
+  const pct = tot? Math.round(100*vus/tot):0;
+  $("#progTxt").textContent = vus+" / "+tot;
+  $("#progBar").style.width = pct+"%";
+  $("#seenPct").textContent = pct+" % vu";
+
+  const box=$("#list"); box.innerHTML="";
+  if(!list.length){
+    box.innerHTML='<div class="empty"><b>Aucune vidéo pour cette recherche.</b>Essaie un mot plus simple : « fractions », « eau », « accord ».</div>';
+    renderProgramme(); return;
+  }
+  const groups={};
+  list.forEach(v=>{ (groups[v.m]=groups[v.m]||[]).push(v); });
+  Object.keys(groups).sort((a,b)=>MORDER.indexOf(a)-MORDER.indexOf(b)).forEach(m=>{
+    const meta = (state.lv!=="Tout" && p && p.matieres.find(x=>x.n===m)) || {c:"#16213C",e:"•",att:""};
+    const sec=document.createElement("section"); sec.className="matsec";
+    sec.innerHTML='<header><div class="ico" style="background:'+meta.c+'">'+meta.e+'</div>'+
+      '<div><h3>'+m+'</h3>'+(meta.att?'<p class="att">'+meta.att+'</p>':'')+'</div>'+
+      '<div class="n">'+groups[m].length+' vidéo'+(groups[m].length>1?'s':'')+'</div></header>';
+    const g=document.createElement("div"); g.className="grid";
+    groups[m].forEach(v=>g.appendChild(card(v)));
+    sec.appendChild(g); box.appendChild(sec);
+  });
+  renderProgramme();
+}
+
+function card(v){
+  const el=document.createElement("article");
+  el.className="card"+(seen.has(v.i)?" seen":"");
+  el.innerHTML=
+    '<div class="thumb"><span class="ph">▶</span><img loading="lazy" src="https://i.ytimg.com/vi/'+v.i+'/mqdefault.jpg" alt="" onerror="this.style.opacity=0">'+
+      '<span class="dur">'+fmt(v.d)+'</span>'+
+      '<button class="seenbtn" title="Marquer comme vue">✓</button>'+
+      '<div class="play"><span>▶</span></div></div>'+
+    '<div class="body"><div class="thm">'+v.th+'</div><h4>'+v.t+'</h4>'+
+      '<div class="meta"><span class="ch">'+v.c+'</span><span class="lvls">'+v.lv.map(l=>'<i>'+l+'</i>').join("")+'</span></div></div>';
+  el.onclick=e=>{
+    if(e.target.classList.contains("seenbtn")){
+      e.stopPropagation();
+      seen.has(v.i)? seen.delete(v.i): seen.add(v.i);
+      saveSeen(); el.classList.toggle("seen", seen.has(v.i)); updateProg(); return;
+    }
+    openVideo(v);
+  };
+  return el;
+}
+
+function updateProg(){
+  const q=state.q.trim().toLowerCase();
+  const list=VIDEOS.filter(v=>(state.lv==="Tout"||v.lv.includes(state.lv))&&(state.mat==="Tout"||v.m===state.mat)&&
+    (!q||(v.t+" "+v.c+" "+v.th+" "+v.m).toLowerCase().includes(q)));
+  const vus=list.filter(v=>seen.has(v.i)).length;
+  $("#progTxt").textContent=vus+" / "+list.length;
+  const pct=list.length?Math.round(100*vus/list.length):0;
+  $("#progBar").style.width=pct+"%"; $("#seenPct").textContent=pct+" % vu";
+}
+
+/* ---- modal ---- */
+let current=null;
+function openVideo(v){
+  current=v;
+  $("#mTitle").textContent=v.t;
+  $("#mMeta").textContent=v.c+" · "+fmt(v.d)+" · "+v.th+" · "+v.lv.join(", ");
+  $("#mFrame").src="https://www.youtube-nocookie.com/embed/"+v.i+"?autoplay=1&rel=0&modestbranding=1";
+  $("#mLink").href="https://www.youtube.com/watch?v="+v.i;
+  $("#mSeen").classList.toggle("on",seen.has(v.i));
+  $("#mSeen").textContent = seen.has(v.i)? "✓ Vue" : "✓ Marquer comme vue";
+  $("#modal").classList.add("open");
+  document.body.style.overflow="hidden";
+}
+function closeVideo(){
+  $("#modal").classList.remove("open");
+  $("#mFrame").src="";
+  document.body.style.overflow="";
+  render();
+}
+$("#mClose").onclick=closeVideo;
+$("#modal").onclick=e=>{ if(e.target.id==="modal") closeVideo(); };
+document.addEventListener("keydown",e=>{ if(e.key==="Escape"&&current) closeVideo(); });
+$("#mSeen").onclick=()=>{
+  if(!current) return;
+  seen.has(current.i)? seen.delete(current.i): seen.add(current.i);
+  saveSeen();
+  $("#mSeen").classList.toggle("on",seen.has(current.i));
+  $("#mSeen").textContent = seen.has(current.i)? "✓ Vue" : "✓ Marquer comme vue";
+};
+
+/* ---- programme ---- */
+function renderProgramme(){
+  const p=PROG[state.lv];
+  if(!p){ $("#progH").textContent="Le programme, de la seconde à la terminale"; $("#progBody").innerHTML=
+    '<div class="chans"><div class="chan"><b>Choisis un niveau</b><span>Le programme s\'affiche niveau par niveau : 2de, 1re, Tle, 1re techno ou Tle techno.</span></div></div>'; return; }
+  $("#progH").textContent="Ce que l'élève doit savoir en fin de "+state.lv;
+  let h='<table class="progtable"><thead><tr><th style="width:150px">Matière</th><th>Domaines</th><th style="width:32%">Ce qu\'on attend</th></tr></thead><tbody>';
+  p.matieres.forEach(m=>{
+    h+='<tr><td class="m"><span class="pill"><span style="color:'+m.c+'">●</span>'+m.n+'</span></td><td><ul>'+
+       m.dom.map(d=>'<li><b>'+d[0]+'</b> — '+d[1]+'</li>').join("")+'</ul></td><td>'+m.att+'</td></tr>';
+  });
+  h+='</tbody></table>';
+  $("#progBody").innerHTML=h;
+}
+
+/* ---- chaînes ---- */
+const CH=[["Les Bons Profs", "Toutes les matières, toutes les séries. Le réflexe quand une notion n'est pas passée en cours.", "https://www.youtube.com/@lesbonsprofs"], ["Yvan Monka", "Maths, seconde à terminale. Un cours posé, un exemple, un exercice : toujours la même structure.", "https://www.youtube.com/@YMONKA"], ["Paul Olivier", "Physique-chimie : fiches de révision et méthodes de calcul écrites proprement.", "https://www.youtube.com/@ProfPaulOlivier"], ["Ta coach de français", "Bac de français : méthode du commentaire, de la dissertation et de l'oral, avec des astuces concrètes.", "https://www.youtube.com/@tacoachdefrancais"], ["Selene sauve ton bac", "Décrypte le programme de français et les attendus du bac, année par année.", "https://www.youtube.com/@selenedepoche"], ["La Boîte à Bac", "Français et philosophie : analyses d'œuvres et méthodes d'épreuve.", "https://www.youtube.com/results?search_query=La%20Bo%C3%AEte%20%C3%A0%20Bac%20cha%C3%AEne"], ["Annabac", "Les corrigés et méthodes officiels des épreuves, y compris pour les séries technologiques.", "https://www.youtube.com/@Annabac"], ["Lumni", "France Télévisions : vidéos courtes sur chaque notion, y compris l'essai et la contraction de texte.", "https://www.youtube.com/@lumnifr"], ["Prof ST2S", "STSS et BPH : cours complets, révisions et méthode de l'épreuve écrite. La chaîne à connaître en ST2S.", "https://www.youtube.com/@ProfST2S"], ["MrWalker", "STMG : droit et management chapitre par chapitre, au rythme du programme.", "https://www.youtube.com/@MrWalker_Master"], ["Le Labo d'Histoire-Géo", "Histoire-géo lycée : cours, cartes et méthodes d'épreuve.", "https://www.youtube.com/@LeLaboHG"], ["BrefSES", "SES en formats courts : mécanismes, auteurs, actualité.", "https://www.youtube.com/@BrefSES"], ["L'Antiseche", "Formats très courts pour la veille d'épreuve : réactiver, pas découvrir.", "https://www.youtube.com/@LAntiseche"]];
+$("#chans").innerHTML=CH.map(c=>'<a class="chan" href="'+c[2]+'" target="_blank" rel="noopener"><em>chaîne</em><b>'+c[0]+'</b><span>'+c[1]+'</span></a>').join("");
+
+/* ---- recherche ---- */
+let tm;
+$("#q").addEventListener("input",e=>{
+  clearTimeout(tm);
+  tm=setTimeout(()=>{ state.q=e.target.value; render(); },140);
+});
+
+/* ---- init ---- */
+$("#sVid").textContent = VIDEOS.length;
+$("#sCh").textContent = new Set(VIDEOS.map(v=>v.c)).size;
+$("#sTh").textContent = new Set(VIDEOS.map(v=>v.m+"|"+v.th)).size;
+render();
+</script>
+</body>
+</html>
